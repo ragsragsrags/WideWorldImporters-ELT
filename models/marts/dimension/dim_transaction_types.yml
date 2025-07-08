@@ -1,0 +1,18 @@
+models:
+  - name: dim_transaction_types
+    description: Transaction types overview data mart.  One row per transaction type.
+    columns:
+      - name: transaction_type_key
+        description: The unique transaction type key.
+        data_tests:
+          - not_null
+          - unique
+      - name: wwi_transaction_type_id
+        description: The transaction type id from source.
+        data_tests:
+          - not_null
+          - unique
+      - name: transaction_type
+        description: The name of the transaction type.
+        data_tests:
+          - not_null

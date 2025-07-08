@@ -1,0 +1,124 @@
+models:
+  - name: fct_orders
+    description: Orders overview data mart.  One row per order line.
+    data_tests:
+      - dbt_utils.expression_is_true:
+          expression: "total_excluding_tax = ROUND(quantity * unit_price, 2)"
+      - dbt_utils.expression_is_true:
+          expression: "tax_amount = ROUND((quantity * unit_price * tax_rate) / 100.0, 2)"
+      - dbt_utils.expression_is_true:
+          expression: "total_including_tax = (ROUND(quantity * unit_price, 2) + ROUND((quantity * unit_price * tax_rate) / 100.0, 2))"
+    columns:
+      - name: order_key
+        description: The unique order key of the order.
+        data_tests:
+          - not_null
+          - unique
+      - name: city_key
+        description: The unique key of the city of the order.
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_cities')
+              field: city_key
+      - name: customer_key
+        description: The unique key of the customer of the order.
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_key
+      - name: stock_item_key
+        description: The unique key of the stock item of the order.
+        data_tests:
+          - not_null
+          - relationships:
+              field: stock_item_key
+              to: ref('dim_stock_items')
+      - name: order_date_key
+        description: The date the order occurred.
+        data_tests:
+          - not_null
+          - relationships:
+              field: date
+              to: ref('dim_dates')
+      - name: picked_date_key
+        description: The date the order was picked for delivery occurred.
+        data_tests:
+          - relationships:
+              field: date
+              to: ref('dim_dates')
+      - name: sales_person_key
+        description: The unique key of the sales person of the order.
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_employees')
+              field: employee_key
+      - name: picker_key
+        description: The name of the picker of the order.
+        data_tests:
+          - relationships:
+              field: employee_key
+              to: ref('dim_employees')
+      - name: wwi_order_id
+        description: The unique id of the order from the source table.
+        data_tests:
+          - not_null
+      - name: wwi_order_line_id
+        description: The unique id of the order line from the source table.
+        data_tests:
+          - not_null
+          - unique
+      - name: wwi_backorder_id
+        description: The back order id of the order from the source table.
+      - name: wwi_city_id
+        description: The unique id of the city from the source table.
+        data_tests:
+          - not_null
+      - name: wwi_customer_id
+        description: The unique id of the customer from the source table.
+        data_tests:
+          - not_null
+      - name: wwi_stock_item_id
+        description: The unique id of the stock item from the source table.
+        data_tests:
+          - not_null
+      - name: wwi_sales_person_id
+        description: The unique id of the sales person from the source table.
+        data_tests:
+          - not_null
+      - name: wwi_picker_id
+        description: The unique id of the picker from the source table.
+      - name: description
+        description: The description of the order line.
+        data_tests:
+          - not_null
+      - name: package
+        description: The package of the order.
+        data_tests:
+          - not_null
+      - name: quantity
+        description: The quantity of the order line.
+        data_tests:
+          - not_null
+      - name: unit_price
+        description: The unit price of the order line.
+        data_tests:
+          - not_null
+      - name: tax_rate
+        description: The tax rate of the order line.
+        data_tests:
+          - not_null
+      - name: total_excluding_tax
+        description: The total excluding the tax of the order line.
+        data_tests:
+          - not_null
+      - name: tax_amount
+        description: The tax amount of the order line.
+        data_tests:
+          - not_null
+      - name: total_including_tax
+        description: The total including the tax of ther order line.
+        data_tests:
+          - not_null

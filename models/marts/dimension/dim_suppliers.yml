@@ -1,0 +1,36 @@
+models:
+  - name: dim_suppliers
+    description: Suppliers overview data mart.  One row per supplier.
+    columns:
+      - name: supplier_key
+        description: The unique supplier key.
+        data_tests:
+          - not_null
+          - unique
+      - name: wwi_supplier_id
+        description: The stock item id from source.
+        data_tests:
+          - not_null
+          - unique
+      - name: supplier
+        description: The name of the supplier.
+        data_tests:
+          - not_null
+      - name: category
+        description: The category of the supplier.
+        data_tests:
+          - not_null
+      - name: primary_contact
+        description: The primary contact of the supplier.
+        data_tests:
+          - not_null
+      - name: supplier_reference
+        description: The reference of the supplier.
+      - name: payment_days
+        description: The number of days to pay of the supplier.
+        data_tests:
+          - not_null
+      - name: postal_code
+        description: The postal code of the supplier.
+        data_tests:
+          - not_null

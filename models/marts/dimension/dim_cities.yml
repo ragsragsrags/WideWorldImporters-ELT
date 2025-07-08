@@ -1,0 +1,46 @@
+models:
+  - name: dim_cities
+    description: Overview for cities data mart.  One row per city with state and country information.
+    columns:
+      - name: city_key
+        description: The unique key of of the cities data mart.
+        data_tests:
+          - not_null
+          - unique
+      - name: wwi_city_id
+        description: The city id of the city from the source table.
+        data_tests:
+          - not_null
+          - unique
+      - name: city
+        description: The name of the city.
+        data_tests:
+          - not_null
+      - name: state_province
+        description: The province of the city.
+        data_tests:
+          - not_null
+      - name: country
+        description: The country of the country.
+        data_tests:
+          - not_null
+      - name: continent
+        description: The continent of the city.
+        data_tests:
+          - not_null
+      - name: sales_territory
+        description: The sales territory of the city.
+        data_tests:
+          - not_null
+      - name: region
+        description: The region of the city.
+        data_tests:
+          - not_null
+      - name: sub_region
+        description: The sub-region of the city.
+        data_tests:
+          - not_null
+      - name: location
+        description: The geological location of the city.
+      - name: latest_recorded_populataion
+        description: The latest recorded population of the city.

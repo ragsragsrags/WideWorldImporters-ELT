@@ -1,0 +1,89 @@
+models:
+  - name: fct_transactions
+    description: Transactions overview data mart.  One row per transaction.
+    columns:
+      - name: transaction_key
+        description: The unique key of the transaction.
+        data_tests:
+          - not_null
+          - unique
+      - name: date_key
+        description: The date of the transaction.
+        data_tests:
+          - not_null
+          - relationships:
+              field: date
+              to: ref('dim_dates')
+      - name: customer_key
+        description: The unique key of the customer of the transaction.
+        data_tests:
+          - relationships:
+              field: customer_key
+              to: ref('dim_customers')
+      - name: bill_to_customer_key
+        description: The unique key of the billed customer of the transaction.
+        data_tests:
+          - relationships:
+              field: customer_key
+              to: ref('dim_customers')
+      - name: supplier_key
+        description: The unique key of the supplier of the transaction.
+        data_tests:
+          - relationships:
+              field: supplier_key
+              to: ref('dim_suppliers')
+      - name: transaction_type_key
+        description: The unique key of the transaction type of the transaction.
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_transaction_types')
+              field: transaction_type_key
+      - name: payment_method_key
+        description: The unique key of the payment method of the transaction.
+        data_tests:
+          - relationships:
+              field: payment_method_key
+              to: ref('dim_payment_methods')
+      - name: wwi_customer_transaction_id
+        description: The unique id of the customer of the transaction.
+      - name: wwi_supplier_transaction_id
+        description: The unique id of the supplier of the transaction.
+      - name: wwi_customer_id
+        description: The unique id of the customer of the transaction.
+      - name: wwi_bill_to_customer_id
+        description: The unique id of the billed customer of the transaction.
+      - name: wwi_supplier_id
+        description: The unique id of the supplier of the transaction.
+      - name: wwi_transaction_type_id
+        description: The unique id of the transaction type of the transaction.
+        data_tests:
+          - not_null
+      - name: wwi_payment_method_id
+        description: The unique id of the payment method of the transaction.
+      - name: wwi_invoice_id
+        description: The unique id of the invoice of the transaction.
+      - name: wwi_purchase_order_id
+        description: The unique id of the purchase order of the transaction.
+      - name: supplier_invoice_number
+        description: The supplier invoice number of the transaction.
+      - name: total_excluding_tax
+        description: The total excluding of tax of the transaction.
+        data_tests:
+          - not_null
+      - name: tax_amount
+        description: The tax amount of the transaction.
+        data_tests:
+          - not_null
+      - name: total_including_tax
+        description: The total including of tax of the transaciton.
+        data_tests:
+          - not_null
+      - name: outstanding_balance
+        description: The outstanding balance of the transaction.
+        data_tests:
+          - not_null
+      - name: is_finalized
+        description: The boolean tag if transaction is finalized.
+        data_tests:
+          - not_null

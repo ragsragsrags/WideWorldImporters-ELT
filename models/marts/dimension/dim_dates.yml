@@ -1,0 +1,61 @@
+models:
+  - name: dim_dates
+    description: Customer overview data mart.  One row per date.
+    columns:
+      - name: date
+        description: The unique date key by day.
+        data_tests:
+          - not_null
+          - unique
+      - name: day_number
+        description: The date's day number.
+        data_tests:
+          - not_null
+      - name: day
+        description:  The date's day.
+        data_tests:
+          - not_null 
+      - name: month
+        description: The date's month.
+        data_tests:
+          - not_null
+      - name: short_month
+        description: The date's shortened month.
+        data_tests:
+          - not_null
+      - name: calendar_month_number
+        description: The date's month in number.
+        data_tests:
+          - not_null
+      - name: calendar_month_label
+        description: The date's calendar month label.
+        data_tests:
+          - not_null  
+      - name: calendar_year
+        description: The date's calendar year.
+        data_tests:
+          - not_null
+      - name: calendar_year_label
+        description: The date's caledar year label.
+        data_tests:
+          - not_null
+      - name: fiscal_month_number
+        description: The date's fiscal month in number.
+        data_tests:
+          - not_null
+      - name: fiscal_month_label
+        description: The date's fiscal month label.
+        data_tests:
+          - not_null
+      - name: fiscal_year
+        description: The date's fiscal year.
+        data_tests:
+          - not_null
+      - name: fiscal_year_label
+        description: The date's fiscal year label.
+        data_tests:
+          - not_null
+      - name: iso_week_number
+        description: The date's ISO week number.
+        data_tests:
+          - not_null

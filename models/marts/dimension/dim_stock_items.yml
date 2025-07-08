@@ -1,0 +1,70 @@
+models:
+  - name: dim_stock_items
+    description: Stock items overview data mart.  One row per stock item.
+    columns:
+      - name: stock_item_key
+        description: The unique stock item key.
+        data_tests:
+          - not_null
+          - unique
+      - name: wwi_stock_item_id
+        description: The stock item id from source.
+        data_tests:
+          - not_null
+          - unique
+      - name: stock_item
+        description: The name of the stock item.
+        data_tests:
+          - not_null
+      - name: color
+        description: The color of the stock item.
+        data_tests:
+          - not_null
+      - name: selling_package
+        description: The selling package of the stock item.
+        data_tests:
+          - not_null
+      - name: buying_package
+        description: The buying package of the stock item.
+        data_tests:
+          - not_null
+      - name: brand
+        description: The brand of the stock item.
+        data_tests:
+          - not_null
+      - name: size
+        description: The size of the stock item.
+        data_tests:
+          - not_null
+      - name: lead_time_days
+        description: The lead time in days of the stock item.
+        data_tests:
+          - not_null
+      - name: quantity_per_outer
+        description: The quantity per outer of the stock item.
+        data_tests:
+          - not_null
+      - name: is_chiller_stock
+        description: Verifies if stock item is a chiller stock.
+        data_tests:
+          - not_null
+      - name: barcode
+        description: The barcode of the stock item.
+        data_tests:
+          - not_null
+      - name: tax_rate
+        description: The tax rate of the stock item.
+        data_tests:
+          - not_null
+      - name: unit_price
+        description: The unit price of the stock item.
+        data_tests:
+          - not_null
+      - name: recommended_retail_price
+        description: The recommended retail price of the stock item.
+      - name: typical_weight_per_unit
+        description: The typical weight per unit of the stock item.
+        data_tests:
+          - not_null
+      - name: photo
+        description: The photo of the stock item in binary.

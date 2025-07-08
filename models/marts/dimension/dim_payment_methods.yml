@@ -1,0 +1,18 @@
+models:
+  - name: dim_payment_methods
+    description: Payment methods overview data mart.  One row per customer.
+    columns:
+      - name: payment_method_key
+        description: The unique payment method key.
+        data_tests:
+          - not_null
+          - unique
+      - name: wwi_payment_method_id
+        description: The payment method id from source.
+        data_tests:
+          - not_null
+          - unique
+      - name: payment_method
+        description: The name of the payment method.
+        data_tests:
+          - not_null

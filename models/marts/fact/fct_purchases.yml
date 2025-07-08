@@ -1,0 +1,131 @@
+models:
+  - name: fct_purchases
+    description: Purchases overview data mart.  One row purchase order line.
+    columns:
+      - name: purchase_key
+        description: The unique key of the purchase.
+        data_tests:
+          - not_null
+          - unique
+      - name: date_key
+        description: The date of the purchase.
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_dates')
+              field: date
+      - name: supplier_key
+        description: The unique key of the supplier of the purchase.
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_suppliers')
+              field: supplier_key
+      - name: stock_item_key
+        description: The unique key of the stock item of the purchase.
+        data_tests:
+          - not_null
+          - relationships:
+              field: stock_item_key
+              to: ref('dim_stock_items')
+      - name: wwi_purchase_order_id
+        description: The unique id of the purchase order from the source table.
+        data_tests:
+          - not_null
+      - name: wwi_supplier_id
+        description: The unique id of the supplier from the source table.
+        data_tests:
+          - not_null
+      - name: wwi_stock_item_id
+        description: The unique id of the stock item from the source table.
+        data_tests:
+          - not_null
+      - name: ordered_outers
+        description: The number of ordered outers of the purchase.
+        data_tests:
+          - not_null 
+      - name: ordered_quantity
+        description: The quantity of orders of the purchase.
+        data_tests:
+          - not_null
+      - name: received_outers
+        description: The number of received outers of the purchase.
+        data_tests:
+          - not_null
+      - name: package
+        description: The package type of the purchase.
+        data_tests:
+          - not_null
+      - name: is_order_finalized
+        description: The boolean tag if order is finalized.
+        data_tests:
+          - not_null
+
+unit_tests:
+  - name: test_ordered_quantity_correctly
+    description: "Test that counts the quantity of orders."
+    model: fct_purchases
+    given:
+      - input: ref('__init__fct_purchases')
+        rows:
+          - { 
+              purchase_order_id: 2,
+              supplier_id: 4,
+              purchase_order_date: '2013-01-01' 
+            }
+      - input: ref('stg_purchasing__purchase_order_lines')
+        rows:
+          - { 
+              purchase_order_id: 2,
+              purchase_order_line_id: 5,
+              stock_item_id: 77,
+              package_type_id: 6,
+              purchase_order_line_ordered_outers: 1
+            }
+          - { 
+              purchase_order_id: 2,
+              purchase_order_line_id:  16,
+              stock_item_id: 95,
+              package_type_id: 6,
+              purchase_order_line_ordered_outers: 2
+            }
+      - input: ref('dim_stock_items')
+        rows: 
+          - {
+              stock_item_key: 95, 
+              wwi_stock_item_id: 95,
+              quantity_per_outer: 12
+            }
+          - { 
+              stock_item_key: 77,
+              wwi_stock_item_id: 77,
+              quantity_per_outer: 12
+            }
+      - input: ref('__merged__package_types')
+        rows:
+          - {
+              package_type_id: 6
+            }
+      - input: ref('dim_suppliers')
+        rows:
+          - {
+              supplier_key: 4,
+              wwi_supplier_id: 4
+            }
+      - input: ref('dim_dates')
+        rows:
+          - {
+              date: '2013-01-01'
+            }
+    expect:
+      rows:
+        - { 
+            wwi_purchase_order_id: 2,
+            wwi_purchase_order_line_id: 5,
+            ordered_quantity: 12
+          }
+        - { 
+            wwi_purchase_order_id: 2,
+            wwi_purchase_order_line_id: 16,
+            ordered_quantity: 24
+          }

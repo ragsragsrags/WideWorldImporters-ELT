@@ -1,0 +1,83 @@
+models:
+  - name: fct_movements
+    description: Movements overview data mart.  One row per stock item transaction.
+    columns:
+      - name: movement_key
+        description: The unique key of the transaction.
+        data_tests:
+          - not_null
+          - unique
+      - name: date_key
+        description: The date when the stock item transaction occurred.
+        data_tests:
+          - not_null
+          - relationships:
+              field: date
+              to: ref('dim_dates')
+      - name: stock_item_key
+        description: The unique key of the stock item of the transaction.
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_stock_items')
+              field: stock_item_key
+      - name: transaction_type_key
+        description: The unique key of the transaction type of the transaction.
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_transaction_types')
+              field: transaction_type_key
+      - name: wwi_stock_item_transaction_id
+        description: The unique id of the stock item transaction from the source table.
+        data_tests:
+          - not_null
+          - unique
+      - name: wwi_stock_item_id
+        description: The unique id of the stock item from the source table.
+        data_tests:
+          - not_null
+      - name: wwi_customer_id
+        description: The unique id of the customer from the source table.
+      - name: wwi_supplier_id
+        description: The unique id of the supplier from the source table.
+      - name: wwi_transaction_type_id
+        description: The unique id of the transaction type from the source table.
+        data_tests:
+          - not_null
+      - name: wwi_invoice_id
+        description: The invoice id of the transaction from the source table.
+      - name: wwi_purchase_order_id
+        description: The purchase order id of the transaction from the source table.
+      - name: quantity
+        description: The quantity of the transaction.
+
+semantic_models:
+  - name: movements
+    defaults:
+      agg_time_dimension: date_key
+    description: |
+      Movements fact table. This table is tracking all stock item transactions.
+    model: ref('fct_movements')
+    entities:
+      - name: movement_key
+        type: primary
+      - name: date
+        type: foreign
+        expr: date_key
+      - name: stock_item
+        type: foreign
+        expr: stock_item_key
+      - name: transaction_type
+        type: foreign
+        expr: transaction_type_key
+    dimensions:
+      - name: date_key
+        expr: date_trunc('day', date_key)
+        type: time
+        type_params:
+          time_granularity: day
+      - name: is_bulk_movement
+        type: categorical
+        expr: case when quantity > 1000 then true else false end
+
