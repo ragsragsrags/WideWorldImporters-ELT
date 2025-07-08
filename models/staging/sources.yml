@@ -1,0 +1,112 @@
+sources:
+  - name: application
+    database: wideworldimporters
+    schema: application
+    description: Tables in application schema 
+    tables:
+      - name: cities
+      - name: cities_archive
+      - name: countries
+      - name: countries_archive
+      - name: deliverymethods
+      - name: deliverymethods_archive
+      - name: paymentmethods
+      - name: paymentmethods_archive
+      - name: people
+      - name: people_archive
+      - name: stateprovinces
+      - name: stateprovinces_archive
+      - name: transactiontypes
+      - name: transactiontypes_archive
+
+  - name: sales
+    database: wideworldimporters
+    schema: sales
+    description: Tables in sales schmema
+    tables:
+      - name: customercategories
+      - name: customercategories_archive
+      - name: buyinggroups
+      - name: buyinggroups_archive
+      - name: customers
+      - name: customers_archive
+      - name: orders
+      - name: orderlines
+      - name: invoices
+      - name: invoicelines
+      - name: customertransactions
+  
+  - name: purchasing
+    database: wideworldimporters
+    schema: purchasing
+    description: Tables in purchasing schmema
+    tables:
+      - name: suppliercategories
+      - name: suppliercategories_archive
+      - name: suppliers
+      - name: suppliers_archive
+      - name: purchaseorders
+      - name: purchaseorderlines
+      - name: suppliertransactions
+
+  - name: staging
+    database: wideworldimporters
+    schema: staging
+    description: Application schema 
+    tables:
+      - name: eltcutoff
+      - name: init_eltcutoff
+
+  - name: base_warehouse
+    database: wideworldimporters
+    schema: warehouse
+    description: Tables in warehouse schema
+    tables:
+      - name: colors
+      - name: colors_archive
+      - name: packagetypes
+      - name: packagetypes_archive
+      - name: stockitems
+      - name: stockitems_archive
+      - name: stockitemtransactions
+      - name: stockitemholdings
+
+  - name: warehouse
+    database: wideworldimporters
+    schema: wideworldimportersdw
+    description: Application schema 
+    tables:
+      - name: __cutofftime__dim_cities
+      - name: __cutofftime__dim_customers
+      - name: __cutofftime__dim_dates      
+      - name: __cutofftime__dim_employees
+      - name: __cutofftime__dim_payment_methods
+      - name: __cutofftime__dim_stock_items
+      - name: __cutofftime__dim_suppliers
+      - name: __cutofftime__dim_transaction_types
+      - name: __cutofftime__fct_movements
+      - name: __cutofftime__fct_orders
+      - name: __cutofftime__fct_purchases
+      - name: __cutofftime__fct_sales
+      - name: __cutofftime__fct_stock_holdings
+      - name: __cutofftime__fct_transactions
+      - name: __init__dim_cities
+      - name: __init__dim_customers
+      - name: __init__dim_dates
+      - name: __init__dim_employees
+      - name: __init__dim_payment_methods
+      - name: __init__dim_stock_items
+      - name: __init__dim_suppliers
+      - name: __init__dim_transaction_types
+      - name: __init__fct_movements
+      - name: __init__fct_orders
+      - name: __init__fct_purchases
+      - name: __init__fct_sales
+      - name: __init__fct_stock_holdings
+      - name: __init__fct_transactions
+
+  - name: information
+    database: wideworldimporters
+    schema: information_schema
+    tables:
+      - name: tables
